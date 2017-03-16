@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col-xs-12">
+        <h3>Athlete Sizes</h3>
+    </div>
+
+
+    <div class="col-xs-12 col-md-4 col-lg-3">
+
+        <div class="form-group">
+            <select class="form-control"
+                    ng-model="vm.selectedSport"
+                    ng-change="vm.onSelectSport()"
+                    ng-options="sport.Id as sport.Name for sport in vm.sports">
+                <option disabled value="" selected>Select a sport</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-4 col-lg-3" 
+         ng-show="vm.athletes">
+        <select class="form-control"
+                ng-model="vm.selectedAthlete"
+                ng-change="vm.onSelectAthlete()"
+                ng-options="athlete as athlete.Name for athlete in vm.athletes">
+            <option disabled value="" selected>Select an athlete</option>
+        </select>
+    </div>
+</div>
+
+<div class="row" ng-show="vm.athleteSizes">
+    <hr />
+    <div class="col-xs-12">
+        <h4>{{vm.selectedAthlete.Name}}</h4>
+    </div>
+
+    <div class="col-md-5 col-lg-4">
+        <form class="form-horizontal"
+              ng-submit="vm.onSubmitSizeForm()"
+              novalidate>
+
+            <div class="form-group"
+                 ng-repeat="item in vm.athleteSizes">
+                <ng-form name="sizeForm">
+                    <label class="col-lg-6 control-label">
+                        {{item.SportsItemName}}
+                    </label>
+                    <div class="col-lg-4">
+                        <input type="text"
+                               name="size"
+                               ng-model="item.Size"
+                               class="form-control"
+                               ng-class="{'has-error':  sizeForm.size.$error.required && sizeForm.size.$touched}"
+                               required />
+                    </div>
+                </ng-form>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-offset-6 col-lg-4">
+                    <button type="submit" 
+                            class="btn btn-primary">Save</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
